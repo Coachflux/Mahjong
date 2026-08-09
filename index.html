@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="theme-color" content="#E0E5EC">
+    <title>NeuMjong</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Ambient background orbs -->
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+
+        <!-- START SCREEN -->
+        <div id="start-screen" class="screen active">
+            <div class="logo-container">
+                <div class="logo-tile">🀄</div>
+            </div>
+            <h1 class="app-title">NEUMJONG</h1>
+            <p class="app-subtitle">100 Levels of Zen Matching</p>
+            <button class="nbtn-primary" id="btn-play">▶ Play</button>
+            <div class="start-actions">
+                <button class="nbtn-secondary" id="btn-levels">📋 Levels</button>
+                <button class="nbtn-secondary" id="btn-stats">📊 Stats</button>
+                <button class="nbtn-secondary" id="btn-settings">⚙️ Settings</button>
+                <button class="nbtn-secondary" id="btn-howto">❓ How to Play</button>
+            </div>
+            <p class="version">v1.0.0</p>
+        </div>
+
+        <!-- GAME SCREEN -->
+        <div id="game-screen" class="screen">
+            <div class="game-header">
+                <button class="nbtn-icon" id="btn-pause">⏸</button>
+                <div class="level-info">
+                    <div class="level-badge" id="level-num">1</div>
+                    <div class="level-text">
+                        <div class="level-name" id="level-name">Beginner</div>
+                        <div class="level-tier" id="level-tier">Tier 1</div>
+                    </div>
+                </div>
+                <div class="game-stats">
+                    <div class="stat">
+                        <span class="stat-label">TIME</span>
+                        <span class="stat-value" id="timer">02:00</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">PAIRS</span>
+                        <span class="stat-value pairs" id="pairs">0/8</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-board-container">
+                <div id="game-board"></div>
+            </div>
+
+            <div class="game-controls">
+                <button class="nbtn-control" id="btn-shuffle">
+                    <span class="nbtn-icon-s">🔀</span>
+                    <span class="nbtn-label">Shuffle</span>
+                    <span class="nbtn-count" id="count-shuffle">3</span>
+                </button>
+                <button class="nbtn-control" id="btn-hint">
+                    <span class="nbtn-icon-s">💡</span>
+                    <span class="nbtn-label">Hint</span>
+                    <span class="nbtn-count" id="count-hint">3</span>
+                </button>
+                <button class="nbtn-control" id="btn-undo">
+                    <span class="nbtn-icon-s">↩️</span>
+                    <span class="nbtn-label">Undo</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- PAUSE OVERLAY -->
+        <div id="pause-overlay" class="overlay">
+            <div class="overlay-card">
+                <div class="overlay-icon">⏸</div>
+                <h2>Paused</h2>
+                <button class="nbtn-primary" id="btn-resume">Resume</button>
+                <button class="nbtn-secondary" id="btn-restart">Restart Level</button>
+                <button class="nbtn-secondary" id="btn-quit">Quit to Menu</button>
+            </div>
+        </div>
+
+        <!-- WIN OVERLAY -->
+        <div id="win-overlay" class="overlay">
+            <div class="overlay-card">
+                <div class="overlay-icon trophy">🏆</div>
+                <h2>Level Complete!</h2>
+                <p class="overlay-msg" id="win-message">Cleared in 00:45</p>
+                <div class="star-rating" id="star-rating">
+                    <span class="star">⭐</span>
+                    <span class="star">⭐</span>
+                    <span class="star">⭐</span>
+                </div>
+                <button class="nbtn-primary" id="btn-next">Next Level →</button>
+                <button class="nbtn-secondary" id="btn-win-menu">Main Menu</button>
+            </div>
+        </div>
+
+        <!-- LOSE OVERLAY -->
+        <div id="lose-overlay" class="overlay">
+            <div class="overlay-card">
+                <div class="overlay-icon">⏰</div>
+                <h2>Time's Up!</h2>
+                <p class="overlay-msg">Don't give up. Try again!</p>
+                <button class="nbtn-primary" id="btn-retry">Try Again ↺</button>
+                <button class="nbtn-secondary" id="btn-lose-menu">Main Menu</button>
+            </div>
+        </div>
+
+        <!-- LEVEL SELECT -->
+        <div id="level-screen" class="screen">
+            <div class="screen-header">
+                <button class="nbtn-icon" id="btn-level-back">←</button>
+                <h2>Select Level</h2>
+                <div style="width:44px"></div>
+            </div>
+            <div class="tier-legend" id="tier-legend"></div>
+            <div id="levels-grid" class="levels-grid"></div>
+        </div>
+
+        <!-- STATS SCREEN -->
+        <div id="stats-screen" class="screen">
+            <div class="screen-header">
+                <button class="nbtn-icon" id="btn-stats-back">←</button>
+                <h2>Statistics</h2>
+                <div style="width:44px"></div>
+            </div>
+            <div class="stats-content">
+                <div class="stat-card">
+                    <div class="stat-card-icon">📍</div>
+                    <div class="stat-card-value" id="stat-level">1</div>
+                    <div class="stat-card-label">Current Level</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon">✅</div>
+                    <div class="stat-card-value" id="stat-completed">0</div>
+                    <div class="stat-card-label">Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon">🎯</div>
+                    <div class="stat-card-value" id="stat-matches">0</div>
+                    <div class="stat-card-label">Total Matches</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon">⏱</div>
+                    <div class="stat-card-value" id="stat-time">00:00</div>
+                    <div class="stat-card-label">Time Played</div>
+                </div>
+            </div>
+            <div class="stats-footer">
+                <p>Keep playing to improve your stats!</p>
+            </div>
+        </div>
+
+        <!-- SETTINGS SCREEN -->
+        <div id="settings-screen" class="screen">
+            <div class="screen-header">
+                <button class="nbtn-icon" id="btn-settings-back">←</button>
+                <h2>Settings</h2>
+                <div style="width:44px"></div>
+            </div>
+            <div class="settings-content">
+                <div class="setting-row">
+                    <div class="setting-info">
+                        <span class="setting-title">🔊 Sound Effects</span>
+                        <span class="setting-desc">Audio feedback on actions</span>
+                    </div>
+                    <button class="toggle active" id="toggle-sound" data-key="sound">ON</button>
+                </div>
+                <div class="setting-row">
+                    <div class="setting-info">
+                        <span class="setting-title">📳 Vibration</span>
+                        <span class="setting-desc">Haptic feedback on matches</span>
+                    </div>
+                    <button class="toggle active" id="toggle-vibrate" data-key="vibrate">ON</button>
+                </div>
+                <div class="setting-row danger-zone">
+                    <div class="setting-info">
+                        <span class="setting-title">🗑 Reset Progress</span>
+                        <span class="setting-desc">Erase all saved data</span>
+                    </div>
+                    <button class="nbtn-danger" id="btn-reset">Reset</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- HOW TO PLAY -->
+        <div id="howto-screen" class="screen">
+            <div class="screen-header">
+                <button class="nbtn-icon" id="btn-howto-back">←</button>
+                <h2>How to Play</h2>
+                <div style="width:44px"></div>
+            </div>
+            <div class="howto-content">
+                <div class="howto-item">
+                    <div class="howto-icon">🀄</div>
+                    <div class="howto-text">
+                        <strong>Match Tiles</strong>
+                        <p>Tap two identical tiles to remove them from the board.</p>
+                    </div>
+                </div>
+                <div class="howto-item">
+                    <div class="howto-icon">🔓</div>
+                    <div class="howto-text">
+                        <strong>Free Tiles Only</strong>
+                        <p>A tile must have at least one free side (left or right) to be selected.</p>
+                    </div>
+                </div>
+                <div class="howto-item">
+                    <div class="howto-icon">⏱</div>
+                    <div class="howto-text">
+                        <strong>Beat the Clock</strong>
+                        <p>Clear all pairs before the timer reaches zero.</p>
+                    </div>
+                </div>
+                <div class="howto-item">
+                    <div class="howto-icon">🔀</div>
+                    <div class="howto-text">
+                        <strong>Use Power-ups</strong>
+                        <p>Shuffle rearranges tiles. Hint highlights a match. Undo reverses your last move.</p>
+                    </div>
+                </div>
+                <div class="howto-item">
+                    <div class="howto-icon">🏆</div>
+                    <div class="howto-text">
+                        <strong>100 Levels</strong>
+                        <p>Progress through 10 tiers from Beginner to Legend. Each tier brings new symbols and bigger boards.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Particle canvas -->
+        <canvas id="particles"></canvas>
+    </div>
+
+    <script src="cordova.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>
